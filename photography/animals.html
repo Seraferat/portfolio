@@ -1,0 +1,332 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#283321">
+  <title>Животные — Фотография</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --paper: #f1eee6;
+      --ink: #171815;
+      --green: #283321;
+      --green-light: #66745a;
+      --line: #c8c5bb;
+      --serif: "Instrument Serif", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .topbar {
+      background: var(--green);
+      color: var(--paper);
+      padding: 18px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font: 34px var(--serif);
+    }
+
+    .topbar a:not(.logo) {
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .page {
+      width: 90%;
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 32px;
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 7px;
+    }
+
+    .eyebrow {
+      font-size: 9px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      margin-top: 48px;
+    }
+
+    h1 {
+      font: clamp(68px, 12vw, 120px)/.85 var(--serif);
+      letter-spacing: -.045em;
+      font-weight: 400;
+      margin: 22px 0;
+      transform: scaleX(0.75);
+transform-origin: left center;
+    }
+
+    h1 span { color: var(--green-light); }
+
+    .description {
+      max-width: 440px;
+      color: #55564e;
+      font-size: 14px;
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .rule {
+      border: 0;
+      border-top: 1px solid var(--line);
+      margin: 28px 0 18px;
+    }
+
+    .gallery-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 18px;
+      font-size: 9px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      padding-bottom: 70px;
+    }
+
+    .photo {
+      border: 0;
+      padding: 0;
+      background: var(--green);
+      cursor: zoom-in;
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+    }
+
+    .photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s;
+}
+
+ .photo:hover img {
+  transform: scale(1.025);
+}
+
+    .footer {
+      background: var(--green);
+      color: var(--paper);
+      padding: 28px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      font-size: 9px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
+      background: rgba(15, 17, 13, .94);
+      cursor: zoom-out;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 88vh;
+      object-fit: contain;
+    }
+
+    .close {
+      position: absolute;
+      top: 18px;
+      right: 24px;
+      border: 0;
+      background: none;
+      color: white;
+      font-size: 36px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 700px) {
+      .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+      }
+
+      .topbar { padding: 15px 5%; }
+
+      .topbar a:not(.logo) { font-size: 8px; }
+
+      .description { max-width: 100%; }
+
+      .footer { font-size: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="logo" href="../index.html">Y.</a>
+    <a href="../index.html#contact">Контакты ↗</a>
+  </header>
+
+  <main class="page">
+    <a class="back" href="../index.html#photography">
+      ← На главную
+    </a>
+
+    <p class="eyebrow">04 / Фотография</p>
+
+    <h1>Животные</h1>
+
+    <p class="description">
+      Портреты питомцев и по-настоящему ценные моменты с ними.
+    </p>
+
+    <hr class="rule">
+
+    <div class="gallery">
+      <!-- Заменяй пути на имена своих фотографий -->
+
+      <button class="photo">
+        <img src="../images/photography/animals/animals-01.jpg"
+             alt=":Животные фотография 1" loading="lazy">
+      </button>
+
+      <button class="photo">
+        <img src="../images/photography/animals/animals-02.jpg"
+             alt="Животные фотография 2" loading="lazy">
+      </button>
+
+      <button class="photo">
+        <img src="../images/photography/animals/animals-03.jpg"
+             alt="Животные фотография 3" loading="lazy">
+      </button>
+
+      <button class="photo">
+        <img src="../images/photography/animals/animals-04.jpg"
+             alt="Животные фотография 4" loading="lazy">
+      </button>
+
+      <button class="photo">
+        <img src="../images/photography/animals/animals-05.jpg"
+             alt="Животные фотография 5" loading="lazy">
+      </button>
+
+      <button class="photo">
+        <img src="../images/photography/animals/animals-06.jpg"
+             alt="Животные фотография 6" loading="lazy">
+      </button>
+
+      <button class="photo">
+  <img src="../images/photography/animals/animals-07.jpg"
+       alt="Животные фотография 7" loading="lazy">
+</button>
+
+<button class="photo">
+  <img src="../images/photography/animals/animals-08.jpg"
+       alt="Животные фотография 8" loading="lazy">
+</button>
+
+<button class="photo">
+  <img src="../images/photography/animals/animals-09.jpg"
+       alt="Животные фотография 9" loading="lazy">
+</button>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <a href="../index.html">Y. / Портфолио</a>
+    <span>© <span id="year"></span> Гущина Ульяна</span>
+    <a href="../index.html#home">Вверх ↑</a>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog"
+       aria-modal="true" aria-label="Просмотр фотографии">
+    <button class="close" aria-label="Закрыть">&times;</button>
+    <img src="" alt="">
+  </div>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    const lightbox = document.getElementById("lightbox");
+    const enlarged = lightbox.querySelector("img");
+    const closeButton = lightbox.querySelector(".close");
+
+    document.querySelectorAll(".photo img").forEach((img) => {
+      img.addEventListener("click", () => {
+        enlarged.src = img.src;
+        enlarged.alt = img.alt;
+        lightbox.classList.add("open");
+        document.body.style.overflow = "hidden";
+        closeButton.focus();
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      document.body.style.overflow = "";
+      enlarged.src = "";
+    }
+
+    closeButton.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeLightbox();
+    });
+  </script>
+</body>
+</html>

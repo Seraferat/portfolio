@@ -1,0 +1,1018 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#283321">
+  <title>Фотосерии — Фотография</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --paper: #f1eee6;
+      --ink: #171815;
+      --green: #283321;
+      --green-light: #66745a;
+      --line: #c8c5bb;
+      --serif: "Instrument Serif", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .topbar {
+      background: var(--green);
+      color: var(--paper);
+      padding: 18px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font: 34px var(--serif);
+    }
+
+    .topbar a:not(.logo) {
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .page {
+      width: 90%;
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 32px;
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 7px;
+    }
+
+    .eyebrow {
+      font-size: 9px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      margin-top: 48px;
+    }
+
+    h1 {
+      font: clamp(68px, 12vw, 110px)/.85 var(--serif);
+      font-weight: 400;
+      margin: 22px 0;
+      transform: scaleX(.75);
+      transform-origin: left center;
+    }
+
+    h1 span {
+      color: var(--green-light);
+    }
+
+    .description {
+      max-width: 480px;
+      color: #55564e;
+      font-size: 14px;
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .rule {
+      border: 0;
+      border-top: 1px solid var(--line);
+      margin: 28px 0;
+    }
+
+    .footer {
+      background: var(--green);
+      color: var(--paper);
+      padding: 28px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      font-size: 9px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+
+.photo-series {
+  padding: 28px 0 65px;
+  border-bottom: 1px solid var(--line);
+}
+
+.series-heading {
+  margin-bottom: 28px;
+}
+
+.series-heading .eyebrow {
+  margin-top: 0;
+}
+
+.series-heading h2 {
+  font: clamp(38px, 5vw, 58px)/.95 var(--serif);
+  font-weight: 400;
+  letter-spacing: -.03em;
+  margin: 12px 0;
+  transform: scaleX(.75);
+  transform-origin: left center;
+}
+
+.series-heading h2 span {
+  color: var(--green-light);
+}
+
+.series-heading > p:last-child {
+  color: #55564e;
+  font-size: 12px;
+  margin: 12px 0 0;
+}
+
+.series-carousel {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.series-track {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  flex: 1;
+}
+
+.series-track::-webkit-scrollbar {
+  display: none;
+}
+
+.series-photo {
+  flex: 0 0 calc((100% - 36px) / 4);
+  aspect-ratio: 4 / 5;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.series-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+
+.series-photo:hover img {
+  transform: scale(1.04);
+}
+
+.series-arrow {
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 17px;
+  transition: background .2s, color .2s;
+}
+
+.series-arrow:hover {
+  background: var(--green);
+  color: var(--paper);
+}
+
+@media (max-width: 700px) {
+  .series-carousel {
+    gap: 8px;
+  }
+
+  .series-photo {
+    flex-basis: 72%;
+  }
+
+  .series-arrow {
+    flex-basis: 28px;
+    width: 28px;
+    height: 28px;
+  }
+}
+
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 60px 70px;
+  border: 0;
+  background: rgba(23, 24, 21, .96);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox.open {
+  display: flex;
+}
+
+.lightbox-image {
+  display: block;
+  max-width: 100%;
+  max-height: calc(100vh - 120px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.lightbox button {
+  position: absolute;
+  border: 1px solid rgba(241, 238, 230, .4);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  background: transparent;
+  color: var(--paper);
+  font-size: 22px;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.lightbox button:hover {
+  background: rgba(241, 238, 230, .15);
+}
+
+.lightbox-close {
+  top: 25px;
+  right: 30px;
+}
+
+.lightbox-prev {
+  left: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox-next {
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox-counter {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--paper);
+  font-size: 11px;
+  letter-spacing: .12em;
+}
+
+@media (max-width: 700px) {
+  .lightbox {
+    padding: 55px 45px;
+  }
+
+  .lightbox-image {
+    max-width: 100%;
+    max-height: calc(100vh - 110px);
+  }
+
+  .lightbox-close {
+    top: 15px;
+    right: 15px;
+  }
+
+  .lightbox-prev {
+    left: 8px;
+  }
+
+  .lightbox-next {
+    right: 8px;
+  }
+}
+
+
+
+    @media (max-width: 700px) {
+      .topbar {
+        padding: 15px 5%;
+      }
+
+      .topbar a:not(.logo) {
+        font-size: 8px;
+      }
+
+      .description {
+        max-width: 100%;
+      }
+
+      .footer {
+        font-size: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <a class="logo" href="../index.html">Y.</a>
+    <a href="../index.html#contact">Контакты ↗</a>
+  </header>
+
+  <main class="page">
+
+    <a class="back" href="../index.html#work">
+      ← На главную
+    </a>
+
+    <p class="eyebrow">07 / Фотография</p>
+
+    <h1>Фотосерии<span>.</span></h1>
+
+    <p class="description">
+      Каждая серия — отдельная маленькая история.
+    </p>
+
+    <hr class="rule">
+
+   
+<section class="photo-series">
+
+  <div class="series-heading">
+    <p class="eyebrow">Серия 01 / 13</p>
+    <h2>Травница<span>.</span></h2>
+  </div>
+
+  <div class="series-carousel">
+    <button class="series-arrow series-prev" aria-label="Предыдущие фотографии">←</button>
+
+    <div class="series-track">
+      <button class="series-photo">
+        <img src="../images/photography/series/series-01/series-01.jpg" alt="Фотография 1">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-01/series-02.jpg" alt="Фотография 2">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-01/series-03.jpg" alt="Фотография 3">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-01/series-04.jpg" alt="Фотография 4">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-01/series-05.jpg" alt="Фотография 5">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-01/series-06.jpg" alt="Фотография 6">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-01/series-07.jpg" alt="Фотография 7">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-01/series-08.jpg" alt="Фотография 8">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-01/series-09.jpg" alt="Фотография 9">
+      </button>
+    </div>
+
+    <button class="series-arrow series-next" aria-label="Следующие фотографии">→</button>
+  </div>
+
+</section>
+
+
+<section class="photo-series">
+
+  <div class="series-heading">
+    <p class="eyebrow">Серия 02 / 13</p>
+    <h2>Бетон и кружево<span>.</span></h2>
+  </div>
+
+  <div class="series-carousel">
+    <button class="series-arrow series-prev" aria-label="Предыдущие фотографии">←</button>
+
+    <div class="series-track">
+      <button class="series-photo">
+        <img src="../images/photography/series/series-02/series-01.jpg" alt="Фотография 1">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-02/series-02.jpg" alt="Фотография 2">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-02/series-03.jpg" alt="Фотография 3">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-02/series-04.jpg" alt="Фотография 4">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-02/series-05.jpg" alt="Фотография 5">
+      </button>
+    </div>
+
+    <button class="series-arrow series-next" aria-label="Следующие фотографии">→</button>
+  </div>
+
+</section>
+
+
+<section class="photo-series">
+
+  <div class="series-heading">
+    <p class="eyebrow">Серия 03 / 13</p>
+    <h2>Зимняя ведьма<span>.</span></h2>
+  </div>
+
+  <div class="series-carousel">
+    <button class="series-arrow series-prev" aria-label="Предыдущие фотографии">←</button>
+
+    <div class="series-track">
+      <button class="series-photo">
+        <img src="../images/photography/series/series-03/series-01.jpg" alt="Зимняя ведьма — фотография 1">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-03/series-02.jpg" alt="Зимняя ведьма — фотография 2">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-03/series-03.jpg" alt="Зимняя ведьма — фотография 3">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-03/series-04.jpg" alt="Зимняя ведьма — фотография 4">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-03/series-05.jpg" alt="Зимняя ведьма — фотография 5">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-03/series-06.jpg" alt="Зимняя ведьма — фотография 6">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-03/series-07.jpg" alt="Зимняя ведьма — фотография 7">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-03/series-08.jpg" alt="Зимняя ведьма — фотография 8">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-03/series-09.jpg" alt="Зимняя ведьма — фотография 9">
+      </button>
+    </div>
+
+    <button class="series-arrow series-next" aria-label="Следующие фотографии">→</button>
+  </div>
+
+</section>
+
+
+<section class="photo-series">
+
+  <div class="series-heading">
+    <p class="eyebrow">Серия 04 / 13</p>
+    <h2>Одуванчики<span>.</span></h2>
+  </div>
+
+  <div class="series-carousel">
+    <button class="series-arrow series-prev" aria-label="Предыдущие фотографии">←</button>
+
+    <div class="series-track">
+      <button class="series-photo">
+        <img src="../images/photography/series/series-04/series-01.jpg" alt="Одуванчики — фотография 1">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-04/series-02.jpg" alt="Одуванчики — фотография 2">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-04/series-03.jpg" alt="Одуванчики — фотография 3">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-04/series-04.jpg" alt="Одуванчики — фотография 4">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-04/series-05.jpg" alt="Одуванчики — фотография 5">
+      </button>
+    </div>
+
+    <button class="series-arrow series-next" aria-label="Следующие фотографии">→</button>
+  </div>
+
+</section>
+
+
+<section class="photo-series">
+
+  <div class="series-heading">
+    <p class="eyebrow">Серия 05 / 13</p>
+    <h2>Цветочный рай<span>.</span></h2>
+  </div>
+
+  <div class="series-carousel">
+    <button class="series-arrow series-prev" aria-label="Предыдущие фотографии">←</button>
+
+    <div class="series-track">
+      <button class="series-photo">
+        <img src="../images/photography/series/series-05/series-01.jpg" alt="Цветочный рай — фотография 1">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-05/series-02.jpg" alt="Цветочный рай — фотография 2">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-05/series-03.jpg" alt="Цветочный рай — фотография 3">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-05/series-04.jpg" alt="Цветочный рай — фотография 4">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-05/series-05.jpg" alt="Цветочный рай — фотография 5">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-05/series-06.jpg" alt="Цветочный рай — фотография 6">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-05/series-07.jpg" alt="Цветочный рай — фотография 7">
+      </button>
+    </div>
+
+    <button class="series-arrow series-next" aria-label="Следующие фотографии">→</button>
+  </div>
+
+</section>
+
+
+<section class="photo-series">
+
+  <div class="series-heading">
+    <p class="eyebrow">Серия 06 / 13</p>
+    <h2>Дриада<span>.</span></h2>
+  </div>
+
+  <div class="series-carousel">
+    <button class="series-arrow series-prev" aria-label="Предыдущие фотографии">←</button>
+
+    <div class="series-track">
+      <button class="series-photo">
+        <img src="../images/photography/series/series-06/series-01.jpg" alt="Дриада — фотография 1">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-06/series-02.jpg" alt="Дриада — фотография 2">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-06/series-03.jpg" alt="Дриада — фотография 3">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-06/series-04.jpg" alt="Дриада — фотография 4">
+      </button>
+    </div>
+
+    <button class="series-arrow series-next" aria-label="Следующие фотографии">→</button>
+  </div>
+
+</section>
+
+
+<section class="photo-series">
+
+  <div class="series-heading">
+    <p class="eyebrow">Серия 07 / 13</p>
+    <h2>Зазеркалье<span>.</span></h2>
+  </div>
+
+  <div class="series-carousel">
+    <button class="series-arrow series-prev" aria-label="Предыдущие фотографии">←</button>
+
+    <div class="series-track">
+      <button class="series-photo">
+        <img src="../images/photography/series/series-07/series-01.jpg" alt="Зазеркалье — фотография 1">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-07/series-02.jpg" alt="Зазеркалье — фотография 2">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-07/series-03.jpg" alt="Зазеркалье — фотография 3">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-07/series-04.jpg" alt="Зазеркалье — фотография 4">
+      </button>
+    </div>
+
+    <button class="series-arrow series-next" aria-label="Следующие фотографии">→</button>
+  </div>
+
+</section>
+
+
+<section class="photo-series">
+
+  <div class="series-heading">
+    <p class="eyebrow">Серия 08 / 13</p>
+    <h2>Солнце в объективе<span>.</span></h2>
+  </div>
+
+  <div class="series-carousel">
+    <button class="series-arrow series-prev" aria-label="Предыдущие фотографии">←</button>
+
+    <div class="series-track">
+      <button class="series-photo">
+        <img src="../images/photography/series/series-08/series-01.jpg" alt="Солнце в объективе — фотография 1">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-08/series-02.jpg" alt="Солнце в объективе — фотография 2">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-08/series-03.jpg" alt="Солнце в объективе — фотография 3">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-08/series-04.jpg" alt="Солнце в объективе — фотография 4">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-08/series-05.jpg" alt="Солнце в объективе — фотография 5">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-08/series-06.jpg" alt="Солнце в объективе — фотография 6">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-08/series-07.jpg" alt="Солнце в объективе — фотография 7">
+      </button>
+    </div>
+
+    <button class="series-arrow series-next" aria-label="Следующие фотографии">→</button>
+  </div>
+
+</section>
+
+
+<section class="photo-series">
+
+  <div class="series-heading">
+    <p class="eyebrow">Серия 09 / 13</p>
+    <h2>Русалка<span>.</span></h2>
+  </div>
+
+  <div class="series-carousel">
+    <button class="series-arrow series-prev" aria-label="Предыдущие фотографии">←</button>
+
+    <div class="series-track">
+      <button class="series-photo">
+        <img src="../images/photography/series/series-09/series-01.jpg" alt="Русалка — фотография 1">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-09/series-02.jpg" alt="Русалка — фотография 2">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-09/series-03.jpg" alt="Русалка — фотография 3">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-09/series-04.jpg" alt="Русалка — фотография 4">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-09/series-05.jpg" alt="Русалка — фотография 5">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-09/series-06.jpg" alt="Русалка — фотография 6">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-09/series-07.jpg" alt="Русалка — фотография 7">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-09/series-08.jpg" alt="Русалка — фотография 8">
+      </button>
+    </div>
+
+    <button class="series-arrow series-next" aria-label="Следующие фотографии">→</button>
+  </div>
+
+</section>
+
+
+<section class="photo-series">
+
+  <div class="series-heading">
+    <p class="eyebrow">Серия 10 / 13</p>
+    <h2>Тишина<span>.</span></h2>
+  </div>
+
+  <div class="series-carousel">
+    <button class="series-arrow series-prev" aria-label="Предыдущие фотографии">←</button>
+
+    <div class="series-track">
+      <button class="series-photo">
+        <img src="../images/photography/series/series-10/series-01.jpg" alt="Тишина — фотография 1">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-10/series-02.jpg" alt="Тишина — фотография 2">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-10/series-03.jpg" alt="Тишина — фотография 3">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-10/series-04.jpg" alt="Тишина — фотография 4">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-10/series-05.jpg" alt="Тишина — фотография 5">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-10/series-06.jpg" alt="Тишина — фотография 6">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-10/series-07.jpg" alt="Тишина — фотография 7">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-10/series-08.jpg" alt="Тишина — фотография 8">
+      </button>
+    </div>
+
+    <button class="series-arrow series-next" aria-label="Следующие фотографии">→</button>
+  </div>
+
+</section>
+
+
+<section class="photo-series">
+
+  <div class="series-heading">
+    <p class="eyebrow">Серия 11 / 13</p>
+    <h2>Солнечный лес<span>.</span></h2>
+  </div>
+
+  <div class="series-carousel">
+    <button class="series-arrow series-prev" aria-label="Предыдущие фотографии">←</button>
+
+    <div class="series-track">
+      <button class="series-photo">
+        <img src="../images/photography/series/series-11/series-01.jpg" alt="Солнечный лес — фотография 1">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-11/series-02.jpg" alt="Солнечный лес — фотография 2">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-11/series-03.jpg" alt="Солнечный лес — фотография 3">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-11/series-04.jpg" alt="Солнечный лес — фотография 4">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-11/series-05.jpg" alt="Солнечный лес — фотография 5">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-11/series-06.jpg" alt="Солнечный лес — фотография 6">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-11/series-07.jpg" alt="Солнечный лес — фотография 7">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-11/series-08.jpg" alt="Солнечный лес — фотография 8">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-11/series-09.jpg" alt="Солнечный лес — фотография 9">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-11/series-10.jpg" alt="Солнечный лес — фотография 10">
+      </button>
+    </div>
+
+    <button class="series-arrow series-next" aria-label="Следующие фотографии">→</button>
+  </div>
+
+</section>
+
+
+<section class="photo-series">
+
+  <div class="series-heading">
+    <p class="eyebrow">Серия 12 / 13</p>
+    <h2>ОН<span>.</span></h2>
+  </div>
+
+  <div class="series-carousel">
+    <button class="series-arrow series-prev" aria-label="Предыдущие фотографии">←</button>
+
+    <div class="series-track">
+      <button class="series-photo">
+        <img src="../images/photography/series/series-12/series-01.jpg" alt="ОН — фотография 1">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-12/series-02.jpg" alt="ОН — фотография 2">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-12/series-03.jpg" alt="ОН — фотография 3">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-12/series-04.jpg" alt="ОН — фотография 4">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-12/series-05.jpg" alt="ОН — фотография 5">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-12/series-06.jpg" alt="ОН — фотография 6">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-12/series-07.jpg" alt="ОН — фотография 7">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-12/series-08.jpg" alt="ОН — фотография 8">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-12/series-09.jpg" alt="ОН — фотография 9">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-12/series-10.jpg" alt="ОН — фотография 10">
+      </button>
+    </div>
+
+    <button class="series-arrow series-next" aria-label="Следующие фотографии">→</button>
+  </div>
+
+</section>
+
+
+<section class="photo-series">
+
+  <div class="series-heading">
+    <p class="eyebrow">Серия 13 / 13</p>
+    <h2>У моря<span>.</span></h2>
+  </div>
+
+  <div class="series-carousel">
+    <button class="series-arrow series-prev" aria-label="Предыдущие фотографии">←</button>
+
+    <div class="series-track">
+      <button class="series-photo">
+        <img src="../images/photography/series/series-13/series-01.jpg" alt="У моря — фотография 1">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-13/series-02.jpg" alt="У моря — фотография 2">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-13/series-03.jpg" alt="У моря — фотография 3">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-13/series-04.jpg" alt="У моря — фотография 4">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-13/series-05.jpg" alt="У моря — фотография 5">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-13/series-06.jpg" alt="У моря — фотография 6">
+      </button>
+      <button class="series-photo">
+        <img src="../images/photography/series/series-13/series-07.jpg" alt="У моря — фотография 7">
+      </button>
+    </div>
+
+    <button class="series-arrow series-next" aria-label="Следующие фотографии">→</button>
+  </div>
+
+</section>
+
+  </main>
+
+  <footer class="footer">
+    <a href="../index.html">Y. / Портфолио</a>
+    <span>© <span id="year"></span> Гущина Ульяна</span>
+    <a href="#">Вверх ↑</a>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+  <button class="lightbox-close" aria-label="Закрыть">×</button>
+  <button class="lightbox-prev" aria-label="Предыдущая фотография">←</button>
+
+  <img class="lightbox-image" src="" alt="">
+
+  <button class="lightbox-next" aria-label="Следующая фотография">→</button>
+  <p class="lightbox-counter"></p>
+</div>
+
+  <script>
+    
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+document.querySelectorAll(".series-carousel").forEach((carousel) => {
+  const track = carousel.querySelector(".series-track");
+  const prev = carousel.querySelector(".series-prev");
+  const next = carousel.querySelector(".series-next");
+
+  function scrollSeries(direction) {
+    const photo = track.querySelector(".series-photo");
+    if (!photo) return;
+
+    const gap = 12;
+    const distance = photo.getBoundingClientRect().width + gap;
+
+    track.scrollBy({
+      left: direction * distance * 2,
+      behavior: "smooth"
+    });
+  }
+
+  prev.addEventListener("click", () => scrollSeries(-1));
+  next.addEventListener("click", () => scrollSeries(1));
+});
+
+
+const lightbox = document.getElementById("lightbox");
+const lightboxImage = lightbox.querySelector(".lightbox-image");
+const lightboxCounter = lightbox.querySelector(".lightbox-counter");
+const lightboxClose = lightbox.querySelector(".lightbox-close");
+const lightboxPrev = lightbox.querySelector(".lightbox-prev");
+const lightboxNext = lightbox.querySelector(".lightbox-next");
+
+let currentPhotos = [];
+let currentPhotoIndex = 0;
+
+function showPhoto(index) {
+  currentPhotoIndex =
+    (index + currentPhotos.length) % currentPhotos.length;
+
+  const photo = currentPhotos[currentPhotoIndex];
+
+  lightboxImage.src = photo.src;
+  lightboxImage.alt = photo.alt;
+  lightboxCounter.textContent =
+    `${currentPhotoIndex + 1} / ${currentPhotos.length}`;
+}
+
+document.querySelectorAll(".series-carousel").forEach((carousel) => {
+  const photos = Array.from(
+    carousel.querySelectorAll(".series-photo img")
+  );
+
+  photos.forEach((photo, index) => {
+    photo.closest(".series-photo").addEventListener("click", () => {
+      currentPhotos = photos;
+      showPhoto(index);
+      lightbox.classList.add("open");
+      document.body.style.overflow = "hidden";
+    });
+  });
+});
+
+function closeLightbox() {
+  lightbox.classList.remove("open");
+  document.body.style.overflow = "";
+  lightboxImage.src = "";
+}
+
+lightboxClose.addEventListener("click", closeLightbox);
+lightboxPrev.addEventListener("click", () => {
+  showPhoto(currentPhotoIndex - 1);
+});
+lightboxNext.addEventListener("click", () => {
+  showPhoto(currentPhotoIndex + 1);
+});
+
+lightbox.addEventListener("click", (event) => {
+  if (event.target === lightbox) closeLightbox();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (!lightbox.classList.contains("open")) return;
+
+  if (event.key === "Escape") closeLightbox();
+  if (event.key === "ArrowLeft") showPhoto(currentPhotoIndex - 1);
+  if (event.key === "ArrowRight") showPhoto(currentPhotoIndex + 1);
+});
+
+
+  </script>
+
+</body>
+</html>
