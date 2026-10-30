@@ -141,10 +141,47 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .main-nav.open{display:flex}.main-nav a{font-size:11px}.social-top{display:none}.section-shell{width:90%}
 .hero{display:flex;flex-direction:column}.hero-copy{padding:26px 0 30px 2%}.hero h1{font-size:clamp(76px,20vw,120px);margin:25px 0 20px}.intro{font-size:12px}
 .hero-collage{min-height:300px}.hero-main{width:70%}.hero-side{right:5%;width:37%;height:55%}
-.film-card{left:52%;width:23%;height:39%}.paper-note{width:27%;font-size:19px}.section-heading{flex-wrap:wrap;gap:10px;padding:18px 0 12px}
-.section-heading h2{font-size:42px}.heading-line{display:none}
-.filters{order:3;width:100%;overflow-x:auto;margin:0;gap:18px;padding-bottom:3px}
-.filter{font-size:8px}.project-meta strong{font-size:16px}.photo-feature{grid-template-columns:1fr 1fr;gap:8px}.landscape-photo{grid-column:1/-1;min-height:250px}
+.film-card{left:52%;width:23%;height:39%}.paper-note{width:27%;font-size:19px}
+.section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 0 12px;
+}
+
+.section-heading h2 {
+  font-size: 42px;
+}
+
+.heading-line {
+  display: none;
+}
+
+.filters {
+  order: 3;
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 0;
+  gap: 20px;
+  padding: 8px 0 12px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.filters::-webkit-scrollbar {
+  display: none;
+}
+
+.filter {
+  flex: 0 0 auto;
+  font-size: 9px;
+  white-space: nowrap;
+  padding: 8px 0;
+}
 .feature-note{padding:10px 5px}.botanical{height:38px;font-size:28px}.feature-note h3{font-size:23px}.feature-note p{font-size:10px}
 .water-photo{min-height:250px}.model-feature{grid-template-columns:1fr 1fr;gap:8px}
 .model-copy{padding:10px 3px}.model-tall{min-height:240px}.model-strip{display:none}.model-note{right:0;top:52%;font-size:17px}.about-grid{grid-template-columns:1fr 1fr;gap:12px}.about-image{height:210px}.about-copy{padding:4px}.about-copy p{font-size:11px}.about-landscape{height:180px}.about-details{grid-column:1/-1;grid-template-columns:1fr 1fr}.about-details p:last-child{grid-column:1/-1}.contact{grid-template-columns:1fr 1fr;gap:16px;padding:22px 0}.contact-title{padding-left:0}.contact-title .section-number{position:static;transform:none;margin-bottom:14px}.contact h2{font-size:44px}.contact-copy{align-self:center}.contact-image{grid-column:1/-1;grid-row:auto;height:180px}.contact-links{grid-column:1;flex-direction:column;gap:10px}.contact blockquote{grid-column:2;grid-row:auto;font-size:19px}.site-footer{width:90%;gap:14px}.site-footer span{font-size:7px;text-align:center}.site-footer a:not(.monogram){font-size:7px;white-space:nowrap}}
